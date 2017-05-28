@@ -8,8 +8,15 @@ before_install:
     - sudo apt-get update -qq
     
 install: 
-    - sudo apt-get -y install qt55base qt55webkit qt55tools qt55translations # Newer ones don't have QtWebKit. QtWebEngine is the replacement
-    - source /opt/qt*/bin/qt*-env.sh
+  - sudo apt-get -y install qt55base qt55webkit qt55tools qt55translations # Newer ones don't have QtWebKit. QtWebEngine is the replacement
+  - source /opt/qt*/bin/qt*-env.sh
+  - # QtKeychain
+  - git clone https://github.com/frankosterfeld/qtkeychain.git
+  - cd qtkeychain
+  - cmake . -DCMAKE_INSTALL_PREFIX=/usr
+  - make -j4
+  - sudo make install
+  - cd ..
 
 script:
   - cmake . -DCMAKE_INSTALL_PREFIX=/usr
