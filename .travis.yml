@@ -22,8 +22,6 @@ script:
   - cmake . -DCMAKE_INSTALL_PREFIX=/usr
   - make -j4
   - make DESTDIR=appdir install ; find appdir/
-  - echo "find /opt | grep libQt5DBus.so.5"
-  - find /opt | grep libQt5DBus.so.5
   - cp /opt/qt*/lib/*.so /usr/lib/ # FIXME; Workaround for strange ldd output
 
 after_success:
