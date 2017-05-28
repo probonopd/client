@@ -12,9 +12,9 @@ install:
     - source /opt/qt*/bin/qt*-env.sh
 
 script:
-  - qmake PREFIX=/usr
+  - cmake . -DCMAKE_INSTALL_PREFIX=/usr
   - make -j4
-  - make INSTALL_ROOT=appdir install ; find appdir/
+  - make DESTDIR=appdir install ; find appdir/
 
 after_success:
   - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
