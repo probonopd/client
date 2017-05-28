@@ -24,6 +24,7 @@ script:
   - make DESTDIR=appdir install ; find appdir/
   - echo "find /opt | grep libQt5DBus.so.5"
   - find /opt | grep libQt5DBus.so.5
+  - cp /opt/qt*/lib/*.so /usr/lib/ # FIXME; Workaround for strange ldd output
 
 after_success:
   - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
@@ -31,7 +32,7 @@ after_success:
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2
   - rm -rf appdir/usr/lib/x86_64-linux-gnu/owncloud/ # linuxdeployqt does not handle libraries in subdirectories yet
-  - ldd ./appdir/usr/bin/owncloud
+  - ldd ./appdir/usr/bin/owncloud # this output looks very ttrange; first "not found" then it finds the same libs
   - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/*.desktop -appimage
   - find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
   - curl --upload-file ./OwnCloud*.AppImage https://transfer.sh/OwnCloud_Client-git.$(git rev-parse --short HEAD)-x86_64.AppImage
