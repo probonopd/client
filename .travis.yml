@@ -22,7 +22,7 @@ script:
   - cmake . -DCMAKE_INSTALL_PREFIX=/usr
   - make -j4
   - make DESTDIR=appdir install ; find appdir/
-  - cp /opt/qt*/lib/*.so /usr/lib/ # FIXME; Workaround for strange ldd output
+  - sudo cp /opt/qt*/lib/*.so /usr/lib/ # FIXME; Workaround for strange ldd output
 
 after_success:
   - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
