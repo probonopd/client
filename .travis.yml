@@ -8,7 +8,7 @@ before_install:
     - sudo apt-get update -qq
     
 install: 
-    - sudo apt-get -y install qt55base qt55webkit # Newer ones don't have QtWebKit. QtWebEngine is the replacement
+    - sudo apt-get -y install qt55base qt55webkit qt55tools qt55translations # Newer ones don't have QtWebKit. QtWebEngine is the replacement
     - source /opt/qt*/bin/qt*-env.sh
 
 script:
